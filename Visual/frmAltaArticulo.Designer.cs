@@ -46,6 +46,8 @@
             this.btnCargarImagen = new System.Windows.Forms.Button();
             this.nudPrecio = new System.Windows.Forms.NumericUpDown();
             this.pbxArticulo = new System.Windows.Forms.PictureBox();
+            this.lblCodRequerido = new System.Windows.Forms.Label();
+            this.lblModeloRequerido = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxArticulo)).BeginInit();
             this.SuspendLayout();
@@ -217,12 +219,32 @@
             this.pbxArticulo.TabIndex = 16;
             this.pbxArticulo.TabStop = false;
             // 
+            // lblCodRequerido
+            // 
+            this.lblCodRequerido.AutoSize = true;
+            this.lblCodRequerido.Location = new System.Drawing.Point(284, 63);
+            this.lblCodRequerido.Name = "lblCodRequerido";
+            this.lblCodRequerido.Size = new System.Drawing.Size(60, 13);
+            this.lblCodRequerido.TabIndex = 17;
+            this.lblCodRequerido.Text = "*Requerido";
+            // 
+            // lblModeloRequerido
+            // 
+            this.lblModeloRequerido.AutoSize = true;
+            this.lblModeloRequerido.Location = new System.Drawing.Point(284, 89);
+            this.lblModeloRequerido.Name = "lblModeloRequerido";
+            this.lblModeloRequerido.Size = new System.Drawing.Size(60, 13);
+            this.lblModeloRequerido.TabIndex = 18;
+            this.lblModeloRequerido.Text = "*Requerido";
+            // 
             // frmAltaArticulo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(360, 450);
+            this.Controls.Add(this.lblModeloRequerido);
+            this.Controls.Add(this.lblCodRequerido);
             this.Controls.Add(this.nudPrecio);
             this.Controls.Add(this.btnCargarImagen);
             this.Controls.Add(this.btnCancelar);
@@ -271,5 +293,7 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnCargarImagen;
         private System.Windows.Forms.NumericUpDown nudPrecio;
+        private System.Windows.Forms.Label lblCodRequerido;
+        private System.Windows.Forms.Label lblModeloRequerido;
     }
 }

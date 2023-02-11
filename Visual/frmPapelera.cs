@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -84,6 +85,7 @@ namespace Visual
             {
                 negocio.eliminarDefinitivo(articulo.id);
                 cargar();
+                if (File.Exists(articulo.imagenUrl)) { File.Delete(articulo.imagenUrl);}
             }
 
         }

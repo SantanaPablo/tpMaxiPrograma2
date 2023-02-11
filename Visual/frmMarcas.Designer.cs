@@ -28,28 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dgvMarcas = new System.Windows.Forms.DataGridView();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblMarcasTitle = new System.Windows.Forms.Label();
+            this.dgvMarcas = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMarcas)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dgvMarcas
-            // 
-            this.dgvMarcas.AllowUserToAddRows = false;
-            this.dgvMarcas.AllowUserToDeleteRows = false;
-            this.dgvMarcas.AllowUserToResizeColumns = false;
-            this.dgvMarcas.AllowUserToResizeRows = false;
-            this.dgvMarcas.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
-            this.dgvMarcas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvMarcas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvMarcas.Location = new System.Drawing.Point(18, 45);
-            this.dgvMarcas.MultiSelect = false;
-            this.dgvMarcas.Name = "dgvMarcas";
-            this.dgvMarcas.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dgvMarcas.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.dgvMarcas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMarcas.Size = new System.Drawing.Size(450, 250);
-            this.dgvMarcas.TabIndex = 5;
             // 
             // lblMarcasTitle
             // 
@@ -61,6 +45,42 @@
             this.lblMarcasTitle.Size = new System.Drawing.Size(127, 33);
             this.lblMarcasTitle.TabIndex = 4;
             this.lblMarcasTitle.Text = "Marcas: ";
+            // 
+            // dgvMarcas
+            // 
+            this.dgvMarcas.AllowUserToAddRows = false;
+            this.dgvMarcas.AllowUserToDeleteRows = false;
+            this.dgvMarcas.AllowUserToResizeColumns = false;
+            this.dgvMarcas.AllowUserToResizeRows = false;
+            this.dgvMarcas.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(41)))), ((int)(((byte)(68)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(41)))), ((int)(((byte)(68)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvMarcas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvMarcas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvMarcas.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvMarcas.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvMarcas.EnableHeadersVisualStyles = false;
+            this.dgvMarcas.Location = new System.Drawing.Point(18, 45);
+            this.dgvMarcas.MultiSelect = false;
+            this.dgvMarcas.Name = "dgvMarcas";
+            this.dgvMarcas.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dgvMarcas.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvMarcas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvMarcas.Size = new System.Drawing.Size(450, 200);
+            this.dgvMarcas.StandardTab = true;
+            this.dgvMarcas.TabIndex = 6;
             // 
             // frmMarcas
             // 
@@ -80,8 +100,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dgvMarcas;
         private System.Windows.Forms.Label lblMarcasTitle;
+        private System.Windows.Forms.DataGridView dgvMarcas;
     }
 }

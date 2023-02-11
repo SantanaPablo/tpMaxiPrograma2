@@ -189,6 +189,9 @@
             this.ClientSize = new System.Drawing.Size(800, 611);
             this.Controls.Add(this.pnlContenedor);
             this.Controls.Add(this.pnlMenu);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(816, 650);
+            this.MinimumSize = new System.Drawing.Size(816, 650);
             this.Name = "frmContenedor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";

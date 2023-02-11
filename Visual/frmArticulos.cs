@@ -19,25 +19,44 @@ namespace Visual
 
         private List<Articulo> listaArticulos = new List<Articulo>();
         private Articulo articulo = new Articulo();
+        private Articulo articuloaux;
         private ArticuloNegocio negocio = new ArticuloNegocio();
-        
+        private List<Articulo> listaBuscar = new List<Articulo>();
+
 
         public frmArticulos()
         {
             InitializeComponent();
         }
 
+        private void frmArticulos_Load(object sender, EventArgs e)
+        {
+            cargar();
+            setearColumnas();
+        }
         private void cargar()
         {
 
             try
             {
                 listaArticulos = negocio.listarArticulos();
-                if (listaArticulos.Count != dgvArticulos.RowCount) { dgvArticulos.DataSource = listaArticulos; }
+                dgvArticulos.DataSource = listaArticulos;
                 cargarLabels();
                 cargarImagen(articulo.imagenUrl);
                 chkBusqAvanzada.Checked = false;
                 txbBuscar.Text = "";
+                if (listaArticulos.Count != 0)
+                {
+                    btnEliminar.Enabled = true;
+                    btnModificar.Enabled = true;
+                }
+
+                else if (listaArticulos.Count == 0)
+                {
+                    btnEliminar.Enabled = false;
+                    btnModificar.Enabled = false;
+                    cargarImagen("");
+                }
 
             }
             catch (Exception ex)
@@ -45,7 +64,6 @@ namespace Visual
                 MessageBox.Show(ex.ToString());
             }
         }
-
 
         private void setearColumnas()
         {
@@ -95,38 +113,15 @@ namespace Visual
             }
         }
 
-        private void frmArticulos_Load(object sender, EventArgs e)
-        {
-            
-            cargar();
-            if (listaArticulos.Count != 0) 
-            { 
-                setearColumnas();
-                btnEliminar.Enabled= true;
-                btnModificar.Enabled= true;
-            }
-
-            else if (listaArticulos.Count == 0)
-            {
-                btnEliminar.Enabled= false;
-                btnModificar.Enabled= false;
-            }
-
-
-
-
-
-
-        }
-
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
             cargarLabels();
             cargarImagen(articulo.imagenUrl);
         }
-
+        //Botones
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+            cargarImagen("");
             frmAltaArticulo nuevo = new frmAltaArticulo();
             nuevo.ShowDialog();
             cargar();
@@ -134,14 +129,15 @@ namespace Visual
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
-        {
-            
+        {      
             cargarImagen("");
             articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            articuloaux = new Articulo();
+            articuloaux.nombre = articulo.nombre;
             frmAltaArticulo modificar = new frmAltaArticulo(articulo);
             modificar.ShowDialog();
             cargar();
-            
+
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -153,53 +149,206 @@ namespace Visual
             {
                 negocio.ReciclarArticulo(articulo);
                 cargar();
+                
             }
+            
         }
 
+        ///////////////////////////////////////////////////////////////       
+
+        //Búsquedas
         private void txbBuscar_TextChanged(object sender, EventArgs e)
         {
-            List<Articulo> listaBuscar;
+            
             string busqueda = txbBuscar.Text;
-
-            if (busqueda.Length >= 3)
-            {
-                listaBuscar = listaArticulos.FindAll(x => x.codigo.ToUpper().Contains(busqueda.ToUpper()) || x.nombre.ToUpper().Contains(busqueda.ToUpper()) || x.descripcion.ToUpper().Contains(busqueda.ToUpper()));
-            }
-            else
-            {
-                listaBuscar = listaArticulos;
-            }
-
-            if (listaBuscar.Count == 0) 
+            if (chkBusqAvanzada.Checked == false)
             { 
-                btnModificar.Enabled = false;
-                btnEliminar.Enabled = false;
+                if (busqueda.Length >= 3)
+                {
+                listaBuscar = listaArticulos.FindAll(x => x.codigo.ToUpper().Contains(busqueda.ToUpper()) || x.nombre.ToUpper().Contains(busqueda.ToUpper()) || x.descripcion.ToUpper().Contains(busqueda.ToUpper()));
+                }
+                else
+                {
+                listaBuscar = listaArticulos;
+                }
+
+                if (listaBuscar.Count == 0)
+                {
+                    btnModificar.Enabled = false;
+                    btnEliminar.Enabled = false;
+                }
+
+                else
+                {
+                    btnModificar.Enabled = true;
+                    btnEliminar.Enabled = true;
+                }
+
+                dgvArticulos.DataSource = listaBuscar;
             }
 
             else 
             {
-                btnModificar.Enabled = true;
-                btnEliminar.Enabled = true;
+                bool isNumeric = int.TryParse(txbBuscar.Text, out _);
+                string criterio = cboFiltro.Text;
+                switch (criterio)
+                {
+                    case "Comienza con":
+                        listaBuscar = listaArticulos.FindAll(x => x.codigo.ToUpper().StartsWith(busqueda.ToUpper()) || x.nombre.ToUpper().StartsWith(busqueda.ToUpper()) || x.descripcion.ToUpper().StartsWith(busqueda.ToUpper()));
+
+                        break;
+                    case "Termina con":
+                        listaBuscar = listaArticulos.FindAll(x => x.codigo.ToUpper().EndsWith(busqueda.ToUpper()) || x.nombre.ToUpper().EndsWith(busqueda.ToUpper()) || x.descripcion.ToUpper().EndsWith(busqueda.ToUpper()));
+                        break;
+                    case "Precio Mayor a":
+
+                        if (isNumeric) { listaBuscar = listaArticulos.FindAll(x => x.precio > int.Parse(busqueda)); }
+                        else
+                        {
+                            txbBuscar.Text = "0";
+                            MessageBox.Show("Solo Números para buscar por precio");
+                            listaBuscar = listaArticulos.FindAll(x => x.precio > int.Parse("0"));
+
+                        }
+
+                        break;
+
+                    case "Precio Menor a":
+
+                        if (isNumeric)
+                        {
+                            if (txbBuscar.Text == "") { txbBuscar.Text = "0"; }
+                            listaBuscar = listaArticulos.FindAll(x => x.precio < int.Parse(busqueda));
+
+                        }
+                        else
+                        {
+                            txbBuscar.Text = "0";
+                            MessageBox.Show("Solo Números para buscar por precio");
+                            listaBuscar = listaArticulos.FindAll(x => x.precio < int.Parse("0"));
+                        }
+                        break;
+                    case "Precio Igual a":
+                        if (isNumeric) { listaBuscar = listaArticulos.FindAll(x => x.precio == int.Parse(busqueda)); }
+                        else
+                        {
+                            txbBuscar.Text = "0";
+                            MessageBox.Show("Solo Números para buscar por precio");
+                            listaBuscar = listaArticulos.FindAll(x => x.precio == int.Parse("0"));
+                        }
+                        break;
+
+
+
+                }
+
+                dgvArticulos.DataSource = listaBuscar;
+
+
             }
 
-            dgvArticulos.DataSource = listaBuscar;
+
+
+
+
         }
 
         private void chkBusqAvanzada_CheckedChanged(object sender, EventArgs e)
         {
             if (chkBusqAvanzada.Checked)
             {
-                cboFiltro.Items.Add("Comienza con ");
-                cboFiltro.Items.Add("Termina con ");
-                cboFiltro.Items.Add("Contiene ");
+                cboFiltro.Enabled = true;
+                cboFiltro.Items.Add("Comienza con");
+                cboFiltro.Items.Add("Termina con");
+                //cboFiltro.Items.Add("Contiene");
                 cboFiltro.Items.Add("Precio Mayor a");
                 cboFiltro.Items.Add("Precio Menor a");
-                cboFiltro.Items.Add("Precio igual a");
+                cboFiltro.Items.Add("Precio Igual a");
             }
-            else { cboFiltro.Items.Clear(); cboFiltro.Text = ""; }
+            else 
+                { 
+                    cboFiltro.Items.Clear();
+                    cboFiltro.Text = ""; 
+                    cboFiltro.Enabled = false;
+                    txbBuscar.Text = "";
+                }
 
 
 
         }
+
+        private void cboFiltro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            string busqueda = txbBuscar.Text;
+            string criterio = cboFiltro.Text;
+
+            try
+            {
+                bool isNumeric = int.TryParse(txbBuscar.Text, out _);
+                switch (criterio)
+                {
+                    case "Comienza con":
+                        listaBuscar = listaArticulos.FindAll(x => x.codigo.ToUpper().StartsWith(busqueda.ToUpper()) || x.nombre.ToUpper().StartsWith(busqueda.ToUpper()) || x.descripcion.ToUpper().StartsWith(busqueda.ToUpper()));
+
+                        break;
+                    case "Termina con":
+                        listaBuscar = listaArticulos.FindAll(x => x.codigo.ToUpper().EndsWith(busqueda.ToUpper()) || x.nombre.ToUpper().EndsWith(busqueda.ToUpper()) || x.descripcion.ToUpper().EndsWith(busqueda.ToUpper()));
+                        break;
+                    case "Precio Mayor a":
+                        
+                        if (isNumeric) { listaBuscar = listaArticulos.FindAll(x => x.precio > int.Parse(busqueda)); }
+                        else 
+                        { 
+                            txbBuscar.Text = "0";
+                            MessageBox.Show("Solo Números para buscar por precio"); 
+                            listaBuscar = listaArticulos.FindAll(x => x.precio > int.Parse("0"));
+                            
+                        }
+
+                            break;
+                        
+                    case "Precio Menor a":
+                        
+                        if (isNumeric) 
+                        {
+                            if (txbBuscar.Text == "") { txbBuscar.Text = "0"; }
+                            listaBuscar = listaArticulos.FindAll(x => x.precio < int.Parse(busqueda));
+                            
+                        }
+                        else 
+                        {
+                            txbBuscar.Text = "0";
+                            MessageBox.Show("Solo Números para buscar por precio");
+                            listaBuscar = listaArticulos.FindAll(x => x.precio < int.Parse("0"));
+                        }
+                        break;
+                    case "Precio Igual a":
+                        if (isNumeric) { listaBuscar = listaArticulos.FindAll(x => x.precio == int.Parse(busqueda)); }
+                        else 
+                        {
+                            txbBuscar.Text = "0";
+                            MessageBox.Show("Solo Números para buscar por precio");
+                            listaBuscar = listaArticulos.FindAll(x => x.precio == int.Parse("0"));
+                        }
+                        break;
+
+                    //default:
+                    //    listaBuscar = listaArticulos.FindAll(x => x.codigo.ToUpper().Contains(busqueda.ToUpper()) || x.nombre.ToUpper().Contains(busqueda.ToUpper()) || x.descripcion.ToUpper().Contains(busqueda.ToUpper()));
+                    //    break;
+
+                }
+               
+                dgvArticulos.DataSource = listaBuscar;
+
+            }
+            catch (Exception ex )
+            {
+
+                throw ex;
+            }
+        }
+
+        //////////////////////////////////////////////////////////////////
     }
 }

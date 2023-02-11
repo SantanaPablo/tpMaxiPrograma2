@@ -30,7 +30,6 @@ namespace Visual
         {
             InitializeComponent();
             this.articulo = articulo;
-            
         }
 
         private void frmAltaArticulo_Load(object sender, EventArgs e)
@@ -51,7 +50,7 @@ namespace Visual
                 {
                     txbCodigo.Text = articulo.codigo;
                     txbNombre.Text = articulo.nombre;
-                    txbDescripcion.Text = articulo.nombre;
+                    txbDescripcion.Text = articulo.descripcion;
                     txbImagenUrl.Text = articulo.imagenUrl;
                     nudPrecio.Value = articulo.precio;
                     cboMarca.SelectedValue= articulo.marca.id;
@@ -81,8 +80,6 @@ namespace Visual
                 articulo.descripcion = txbDescripcion.Text;
                 articulo.precio = nudPrecio.Value;
                 articulo.imagenUrl = txbImagenUrl.Text;
-               
-                
                 articulo.marca = (Marca)cboMarca.SelectedItem;
                 articulo.categoria = (Categoria)cboCategoria.SelectedItem;
 
@@ -102,13 +99,10 @@ namespace Visual
                     this.Close();
                 }
                 else
-                {
-                    
+                {   
                     articuloNegocio.AgregarArticulo(articulo);
-                    
+                    MessageBox.Show($"Artículo {articulo.nombre} agregado");
                     this.Close();
-
-
                 }
 
                 
@@ -119,10 +113,6 @@ namespace Visual
                 throw ex;
             }
 
-            finally {
-                
-               
-            }
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -150,28 +140,11 @@ namespace Visual
             
             if (imagen.ShowDialog() == DialogResult.OK)
             {
-                
                 cargarImagen(imagen.FileName);
                 File.Copy(imagen.FileName, "\\Imagenes\\" + imagen.SafeFileName, true);
                 txbImagenUrl.Text = "\\Imagenes\\" + imagen.SafeFileName;
             }
             else imagen = null;
-            
-
-        }
-
-        private void guardarImagen()
-        {
-            try
-            {             
-                  File.Copy("\\Imagenes\\" + imagen.SafeFileName, "\\Imagenes\\" + $"{articulo.id}imagen", true);     
-                  
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
         }
     }
 }
