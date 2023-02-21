@@ -83,36 +83,6 @@ namespace Visual.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Cerrar {
-            get {
-                object obj = ResourceManager.GetObject("Cerrar", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap maximizar {
-            get {
-                object obj = ResourceManager.GetObject("maximizar", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap minimizar {
-            get {
-                object obj = ResourceManager.GetObject("minimizar", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap papelera {
             get {
                 object obj = ResourceManager.GetObject("papelera", resourceCulture);
@@ -136,16 +106,6 @@ namespace Visual.Properties {
         internal static System.Drawing.Bitmap registrada1 {
             get {
                 object obj = ResourceManager.GetObject("registrada1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap restaurar {
-            get {
-                object obj = ResourceManager.GetObject("restaurar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

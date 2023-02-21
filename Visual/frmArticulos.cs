@@ -115,42 +115,78 @@ namespace Visual
 
         private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
         {
-            cargarLabels();
-            cargarImagen(articulo.imagenUrl);
+            try
+            {
+                cargarLabels();
+                cargarImagen(articulo.imagenUrl);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
         //Botones
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            cargarImagen("");
-            frmAltaArticulo nuevo = new frmAltaArticulo();
-            nuevo.ShowDialog();
-            cargar();
+            try
+            {
+                cargarImagen("");
+                frmAltaArticulo nuevo = new frmAltaArticulo();
+                nuevo.ShowDialog();
+                cargar();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
 
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
-        {      
-            cargarImagen("");
-            articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-            articuloaux = new Articulo();
-            articuloaux.nombre = articulo.nombre;
-            frmAltaArticulo modificar = new frmAltaArticulo(articulo);
-            modificar.ShowDialog();
-            cargar();
+        {
+            try
+            {
+                cargarImagen("");
+                articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                articuloaux = new Articulo();
+                articuloaux.nombre = articulo.nombre;
+                frmAltaArticulo modificar = new frmAltaArticulo(articulo);
+                modificar.ShowDialog();
+                cargar();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
 
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            
-            articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-            DialogResult respuesta = MessageBox.Show("¿Reciclar?", "Reciclar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (respuesta == DialogResult.Yes)
+
+            try
             {
-                negocio.ReciclarArticulo(articulo);
-                cargar();
-                
+                articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                DialogResult respuesta = MessageBox.Show("¿Reciclar?", "Reciclar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (respuesta == DialogResult.Yes)
+                {
+                    negocio.ReciclarArticulo(articulo);
+                    cargar();
+
+                }
             }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
             
         }
 
@@ -161,117 +197,129 @@ namespace Visual
         {
             
             string busqueda = txbBuscar.Text;
-            if (chkBusqAvanzada.Checked == false)
-            { 
-                if (busqueda.Length >= 3)
-                {
-                listaBuscar = listaArticulos.FindAll(x => x.codigo.ToUpper().Contains(busqueda.ToUpper()) || x.nombre.ToUpper().Contains(busqueda.ToUpper()) || x.descripcion.ToUpper().Contains(busqueda.ToUpper()));
-                }
-                else
-                {
-                listaBuscar = listaArticulos;
-                }
-
-                if (listaBuscar.Count == 0)
-                {
-                    btnModificar.Enabled = false;
-                    btnEliminar.Enabled = false;
-                }
-
-                else
-                {
-                    btnModificar.Enabled = true;
-                    btnEliminar.Enabled = true;
-                }
-
-                dgvArticulos.DataSource = listaBuscar;
-            }
-
-            else 
+            try
             {
-                bool isNumeric = int.TryParse(txbBuscar.Text, out _);
-                string criterio = cboFiltro.Text;
-                switch (criterio)
+                if (chkBusqAvanzada.Checked == false || cboFiltro.Text == "")
                 {
-                    case "Comienza con":
-                        listaBuscar = listaArticulos.FindAll(x => x.codigo.ToUpper().StartsWith(busqueda.ToUpper()) || x.nombre.ToUpper().StartsWith(busqueda.ToUpper()) || x.descripcion.ToUpper().StartsWith(busqueda.ToUpper()));
+                    if (busqueda.Length >= 3)
+                    {
+                        listaBuscar = listaArticulos.FindAll(x => x.codigo.ToUpper().Contains(busqueda.ToUpper()) || x.nombre.ToUpper().Contains(busqueda.ToUpper()) || x.descripcion.ToUpper().Contains(busqueda.ToUpper()));
+                    }
+                    else
+                    {
+                        listaBuscar = listaArticulos;
+                    }
 
-                        break;
-                    case "Termina con":
-                        listaBuscar = listaArticulos.FindAll(x => x.codigo.ToUpper().EndsWith(busqueda.ToUpper()) || x.nombre.ToUpper().EndsWith(busqueda.ToUpper()) || x.descripcion.ToUpper().EndsWith(busqueda.ToUpper()));
-                        break;
-                    case "Precio Mayor a":
+                    if (listaBuscar.Count == 0)
+                    {
+                        btnModificar.Enabled = false;
+                        btnEliminar.Enabled = false;
+                    }
 
-                        if (isNumeric) { listaBuscar = listaArticulos.FindAll(x => x.precio > int.Parse(busqueda)); }
-                        else
-                        {
-                            txbBuscar.Text = "0";
-                            MessageBox.Show("Solo Números para buscar por precio");
-                            listaBuscar = listaArticulos.FindAll(x => x.precio > int.Parse("0"));
+                    else
+                    {
+                        btnModificar.Enabled = true;
+                        btnEliminar.Enabled = true;
+                    }
 
-                        }
+                    dgvArticulos.DataSource = listaBuscar;
+                }
 
-                        break;
+                else
+                {
+                    bool isNumeric = int.TryParse(txbBuscar.Text, out _);
+                    string criterio = cboFiltro.Text;
+                    switch (criterio)
+                    {
+                        case "Comienza con":
+                            listaBuscar = listaArticulos.FindAll(x => x.codigo.ToUpper().StartsWith(busqueda.ToUpper()) || x.nombre.ToUpper().StartsWith(busqueda.ToUpper()) || x.descripcion.ToUpper().StartsWith(busqueda.ToUpper()));
 
-                    case "Precio Menor a":
+                            break;
+                        case "Termina con":
+                            listaBuscar = listaArticulos.FindAll(x => x.codigo.ToUpper().EndsWith(busqueda.ToUpper()) || x.nombre.ToUpper().EndsWith(busqueda.ToUpper()) || x.descripcion.ToUpper().EndsWith(busqueda.ToUpper()));
+                            break;
+                        case "Precio Mayor a":
 
-                        if (isNumeric)
-                        {
-                            if (txbBuscar.Text == "") { txbBuscar.Text = "0"; }
-                            listaBuscar = listaArticulos.FindAll(x => x.precio < int.Parse(busqueda));
+                            if (isNumeric) { listaBuscar = listaArticulos.FindAll(x => x.precio > int.Parse(busqueda)); }
+                            else
+                            {
+                                txbBuscar.Text = "0";
+                                MessageBox.Show("Solo Números para buscar por precio");
+                                listaBuscar = listaArticulos.FindAll(x => x.precio > int.Parse("0"));
 
-                        }
-                        else
-                        {
-                            txbBuscar.Text = "0";
-                            MessageBox.Show("Solo Números para buscar por precio");
-                            listaBuscar = listaArticulos.FindAll(x => x.precio < int.Parse("0"));
-                        }
-                        break;
-                    case "Precio Igual a":
-                        if (isNumeric) { listaBuscar = listaArticulos.FindAll(x => x.precio == int.Parse(busqueda)); }
-                        else
-                        {
-                            txbBuscar.Text = "0";
-                            MessageBox.Show("Solo Números para buscar por precio");
-                            listaBuscar = listaArticulos.FindAll(x => x.precio == int.Parse("0"));
-                        }
-                        break;
+                            }
 
+                            break;
+
+                        case "Precio Menor a":
+
+                            if (isNumeric)
+                            {
+                                if (txbBuscar.Text == "") { txbBuscar.Text = "0"; }
+                                listaBuscar = listaArticulos.FindAll(x => x.precio < int.Parse(busqueda));
+
+                            }
+                            else
+                            {
+                                txbBuscar.Text = "0";
+                                MessageBox.Show("Solo Números para buscar por precio");
+                                listaBuscar = listaArticulos.FindAll(x => x.precio < int.Parse("0"));
+                            }
+                            break;
+                        case "Precio Igual a":
+                            if (isNumeric) { listaBuscar = listaArticulos.FindAll(x => x.precio == int.Parse(busqueda)); }
+                            else
+                            {
+                                txbBuscar.Text = "0";
+                                MessageBox.Show("Solo Números para buscar por precio");
+                                listaBuscar = listaArticulos.FindAll(x => x.precio == int.Parse("0"));
+                            }
+                            break;
+
+
+
+                    }
+
+                    dgvArticulos.DataSource = listaBuscar;
 
 
                 }
-
-                dgvArticulos.DataSource = listaBuscar;
-
-
             }
+            catch (Exception ex)
+            {
 
-
-
-
+                throw ex;
+            }
 
         }
 
         private void chkBusqAvanzada_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkBusqAvanzada.Checked)
+            try
             {
-                cboFiltro.Enabled = true;
-                cboFiltro.Items.Add("Comienza con");
-                cboFiltro.Items.Add("Termina con");
-                //cboFiltro.Items.Add("Contiene");
-                cboFiltro.Items.Add("Precio Mayor a");
-                cboFiltro.Items.Add("Precio Menor a");
-                cboFiltro.Items.Add("Precio Igual a");
-            }
-            else 
-                { 
+                if (chkBusqAvanzada.Checked)
+                {
+                    cboFiltro.Enabled = true;
+                    cboFiltro.Items.Add("Comienza con");
+                    cboFiltro.Items.Add("Termina con");
+                    //cboFiltro.Items.Add("Contiene");
+                    cboFiltro.Items.Add("Precio Mayor a");
+                    cboFiltro.Items.Add("Precio Menor a");
+                    cboFiltro.Items.Add("Precio Igual a");
+                }
+                else
+                {
                     cboFiltro.Items.Clear();
-                    cboFiltro.Text = ""; 
+                    cboFiltro.Text = "";
                     cboFiltro.Enabled = false;
                     txbBuscar.Text = "";
                 }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
 
 
 
@@ -301,7 +349,7 @@ namespace Visual
                         else 
                         { 
                             txbBuscar.Text = "0";
-                            MessageBox.Show("Solo Números para buscar por precio"); 
+                            //MessageBox.Show("Solo Números para buscar por precio"); 
                             listaBuscar = listaArticulos.FindAll(x => x.precio > int.Parse("0"));
                             
                         }
@@ -319,7 +367,7 @@ namespace Visual
                         else 
                         {
                             txbBuscar.Text = "0";
-                            MessageBox.Show("Solo Números para buscar por precio");
+                            //MessageBox.Show("Solo Números para buscar por precio");
                             listaBuscar = listaArticulos.FindAll(x => x.precio < int.Parse("0"));
                         }
                         break;
@@ -328,7 +376,7 @@ namespace Visual
                         else 
                         {
                             txbBuscar.Text = "0";
-                            MessageBox.Show("Solo Números para buscar por precio");
+                            //MessageBox.Show("Solo Números para buscar por precio");
                             listaBuscar = listaArticulos.FindAll(x => x.precio == int.Parse("0"));
                         }
                         break;

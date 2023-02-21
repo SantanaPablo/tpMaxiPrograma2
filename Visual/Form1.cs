@@ -116,13 +116,12 @@ namespace Visual
         {
             try
             {   
-                pbxPerfil.Load(imagen);
-                
+                pbxPerfil.Load(imagen);  
                
             }
             catch (Exception)
             {
-                pbxPerfil.Load("https://simg.nicepng.com/png/small/246-2467547_your-logo-here-your-logo-here-logo-png.png");
+                pbxPerfil.Load("https://cdn.xxl.thumbs.canstockphoto.com/your-logo-here-placeholder-symbol-vector-your-logo-here-placeholder-symbol-vector-illustration-drawing_csp88853596.jpg");
             }
         }
         private void btnCargarImgPerfil_Click(object sender, EventArgs e)
@@ -146,7 +145,7 @@ namespace Visual
             btnCargarImgPerfil.Visible = true;
         }
 
-        private void pbxPerfil_MouseLeave(object sender, EventArgs e)
+        private void btnCargarImgPerfil_MouseLeave(object sender, EventArgs e)
         {
             btnCargarImgPerfil.Visible = false;
         }

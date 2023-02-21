@@ -116,11 +116,20 @@ namespace Visual
         }
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            if (imagen != null) 
+            try
             {
-                File.Delete("\\Imagenes\\" + imagen.SafeFileName);
+                if (imagen != null)
+                {
+                    File.Delete("\\Imagenes\\" + imagen.SafeFileName);
+                }
+                this.Close();
             }
-            this.Close();
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
         private void cargarImagen(string imagen)
         {
@@ -134,17 +143,26 @@ namespace Visual
             }
         }
         private void btnCargarImagen_Click(object sender, EventArgs e)
-        {   
-            imagen = new OpenFileDialog();
-            imagen.Filter = "Image files|*.bmp;*.jpg;*.gif;*.png;*.tif";
-            
-            if (imagen.ShowDialog() == DialogResult.OK)
+        {
+            try
             {
-                cargarImagen(imagen.FileName);
-                File.Copy(imagen.FileName, "\\Imagenes\\" + imagen.SafeFileName, true);
-                txbImagenUrl.Text = "\\Imagenes\\" + imagen.SafeFileName;
+                imagen = new OpenFileDialog();
+                imagen.Filter = "Image files|*.bmp;*.jpg;*.gif;*.png;*.tif";
+
+                if (imagen.ShowDialog() == DialogResult.OK)
+                {
+                    cargarImagen(imagen.FileName);
+                    File.Copy(imagen.FileName, "\\Imagenes\\" + imagen.SafeFileName, true);
+                    txbImagenUrl.Text = "\\Imagenes\\" + imagen.SafeFileName;
+                }
+                else imagen = null;
             }
-            else imagen = null;
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
     }
 }

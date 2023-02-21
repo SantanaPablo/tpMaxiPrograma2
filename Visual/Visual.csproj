@@ -127,15 +127,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Cerrar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\minimizar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\maximizar.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\registrada.png" />
   </ItemGroup>
   <ItemGroup>
@@ -149,9 +140,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\categorias.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\restaurar.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dominio\Dominio.csproj">

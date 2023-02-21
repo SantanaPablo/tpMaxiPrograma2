@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -29,6 +30,8 @@ namespace Visual
             {
                 listaCategorias = negocio.listarCategorias();
                 dgvCategorias.DataSource = listaCategorias;
+                dgvCategorias.Columns["id"].Width= 50;
+                dgvCategorias.Columns["descripcion"].Width = 150;
 
             }
             catch (Exception ex)
@@ -41,6 +44,51 @@ namespace Visual
         {
             cargar();
             dgvCategorias.RowHeadersVisible = false;
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int cont = 0;
+                if (txbAgregar.Text != "")
+                {
+                    DialogResult respuesta = MessageBox.Show("¿Agregar Categoría " + txbAgregar.Text + "?", "Agregando Categoría...", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        foreach (DataGridViewRow row in dgvCategorias.Rows)
+                        {
+                            if (txbAgregar.Text.ToUpper() == row.Cells["Descripcion"].Value.ToString().ToUpper())
+                            {
+                                cont++;
+                            }
+
+
+                        }
+                        if (cont == 0)
+                        {
+                            categoria.descripcion = txbAgregar.Text;
+                            negocio.AgregarCategoria(categoria);
+                            MessageBox.Show($"Categoría {categoria.descripcion} agregada");
+                            cargar();
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("La Categoría ya existe");
+                            cont = 0;
+                        }
+
+                    }
+                }
+                else MessageBox.Show("Escribir Categoría para agregar");
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
     }
 }

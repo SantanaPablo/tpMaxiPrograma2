@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmContenedor));
             this.pnlMenu = new System.Windows.Forms.Panel();
+            this.lblAlumno = new System.Windows.Forms.Label();
             this.btnPapelera = new System.Windows.Forms.Button();
             this.btnCategorias = new System.Windows.Forms.Button();
             this.btnMarcas = new System.Windows.Forms.Button();
@@ -46,6 +47,7 @@
             // pnlMenu
             // 
             this.pnlMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(41)))), ((int)(((byte)(68)))));
+            this.pnlMenu.Controls.Add(this.lblAlumno);
             this.pnlMenu.Controls.Add(this.btnPapelera);
             this.pnlMenu.Controls.Add(this.btnCategorias);
             this.pnlMenu.Controls.Add(this.btnMarcas);
@@ -57,6 +59,16 @@
             this.pnlMenu.Size = new System.Drawing.Size(220, 611);
             this.pnlMenu.TabIndex = 1;
             // 
+            // lblAlumno
+            // 
+            this.lblAlumno.AutoSize = true;
+            this.lblAlumno.ForeColor = System.Drawing.SystemColors.Control;
+            this.lblAlumno.Location = new System.Drawing.Point(12, 561);
+            this.lblAlumno.Name = "lblAlumno";
+            this.lblAlumno.Size = new System.Drawing.Size(180, 13);
+            this.lblAlumno.TabIndex = 0;
+            this.lblAlumno.Text = "Alumno: Pablo Adrián Britez Santana";
+            // 
             // btnPapelera
             // 
             this.btnPapelera.Dock = System.Windows.Forms.DockStyle.Top;
@@ -67,7 +79,7 @@
             this.btnPapelera.ForeColor = System.Drawing.SystemColors.Control;
             this.btnPapelera.Image = global::Visual.Properties.Resources.papelera;
             this.btnPapelera.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPapelera.Location = new System.Drawing.Point(0, 280);
+            this.btnPapelera.Location = new System.Drawing.Point(0, 360);
             this.btnPapelera.Name = "btnPapelera";
             this.btnPapelera.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnPapelera.Size = new System.Drawing.Size(220, 60);
@@ -88,7 +100,7 @@
             this.btnCategorias.ForeColor = System.Drawing.SystemColors.Control;
             this.btnCategorias.Image = global::Visual.Properties.Resources.categorias;
             this.btnCategorias.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCategorias.Location = new System.Drawing.Point(0, 220);
+            this.btnCategorias.Location = new System.Drawing.Point(0, 300);
             this.btnCategorias.Name = "btnCategorias";
             this.btnCategorias.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnCategorias.Size = new System.Drawing.Size(220, 60);
@@ -109,7 +121,7 @@
             this.btnMarcas.ForeColor = System.Drawing.SystemColors.Control;
             this.btnMarcas.Image = ((System.Drawing.Image)(resources.GetObject("btnMarcas.Image")));
             this.btnMarcas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMarcas.Location = new System.Drawing.Point(0, 160);
+            this.btnMarcas.Location = new System.Drawing.Point(0, 240);
             this.btnMarcas.Name = "btnMarcas";
             this.btnMarcas.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnMarcas.Size = new System.Drawing.Size(220, 60);
@@ -130,7 +142,7 @@
             this.btnArticulos.ForeColor = System.Drawing.SystemColors.Control;
             this.btnArticulos.Image = global::Visual.Properties.Resources.articulos;
             this.btnArticulos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnArticulos.Location = new System.Drawing.Point(0, 100);
+            this.btnArticulos.Location = new System.Drawing.Point(0, 180);
             this.btnArticulos.Name = "btnArticulos";
             this.btnArticulos.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.btnArticulos.Size = new System.Drawing.Size(220, 60);
@@ -148,12 +160,12 @@
             this.pnlTopMenu.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTopMenu.Location = new System.Drawing.Point(0, 0);
             this.pnlTopMenu.Name = "pnlTopMenu";
-            this.pnlTopMenu.Size = new System.Drawing.Size(220, 100);
+            this.pnlTopMenu.Size = new System.Drawing.Size(220, 180);
             this.pnlTopMenu.TabIndex = 2;
             // 
             // btnCargarImgPerfil
             // 
-            this.btnCargarImgPerfil.Location = new System.Drawing.Point(139, 74);
+            this.btnCargarImgPerfil.Location = new System.Drawing.Point(117, 140);
             this.btnCargarImgPerfil.Name = "btnCargarImgPerfil";
             this.btnCargarImgPerfil.Size = new System.Drawing.Size(75, 23);
             this.btnCargarImgPerfil.TabIndex = 0;
@@ -161,17 +173,17 @@
             this.btnCargarImgPerfil.UseVisualStyleBackColor = true;
             this.btnCargarImgPerfil.Visible = false;
             this.btnCargarImgPerfil.Click += new System.EventHandler(this.btnCargarImgPerfil_Click);
+            this.btnCargarImgPerfil.MouseLeave += new System.EventHandler(this.btnCargarImgPerfil_MouseLeave);
             // 
             // pbxPerfil
             // 
-            this.pbxPerfil.Location = new System.Drawing.Point(55, 0);
+            this.pbxPerfil.Location = new System.Drawing.Point(32, 12);
             this.pbxPerfil.Name = "pbxPerfil";
-            this.pbxPerfil.Size = new System.Drawing.Size(100, 100);
+            this.pbxPerfil.Size = new System.Drawing.Size(160, 160);
             this.pbxPerfil.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbxPerfil.TabIndex = 0;
             this.pbxPerfil.TabStop = false;
             this.pbxPerfil.Click += new System.EventHandler(this.pbxPerfil_Click);
-            this.pbxPerfil.MouseLeave += new System.EventHandler(this.pbxPerfil_MouseLeave);
             // 
             // pnlContenedor
             // 
@@ -189,14 +201,16 @@
             this.ClientSize = new System.Drawing.Size(800, 611);
             this.Controls.Add(this.pnlContenedor);
             this.Controls.Add(this.pnlMenu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(816, 650);
             this.MinimumSize = new System.Drawing.Size(816, 650);
             this.Name = "frmContenedor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Gestor de Artículos";
             this.Load += new System.EventHandler(this.frmContenedor_Load);
             this.pnlMenu.ResumeLayout(false);
+            this.pnlMenu.PerformLayout();
             this.pnlTopMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbxPerfil)).EndInit();
             this.ResumeLayout(false);
@@ -213,6 +227,7 @@
         private System.Windows.Forms.Button btnCategorias;
         private System.Windows.Forms.PictureBox pbxPerfil;
         private System.Windows.Forms.Button btnCargarImgPerfil;
+        private System.Windows.Forms.Label lblAlumno;
     }
 }
 

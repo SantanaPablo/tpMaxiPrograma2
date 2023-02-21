@@ -10,7 +10,7 @@ namespace Negocio
     public class ArticuloNegocio
     {
 
-        public List<Articulo> listarArticulos() 
+        public List<Articulo> listarArticulos()
         {
             List<Articulo> listaArticulos = new List<Articulo>();
             AccesoDatos acceso = new AccesoDatos();
@@ -24,10 +24,10 @@ namespace Negocio
                 {
                     Articulo aux = new Articulo();
                     aux.id = (int)acceso.Lector["Id"];
-                    aux.codigo = (string)acceso.Lector["Codigo"];
-                    aux.nombre = (string)acceso.Lector["Nombre"];
-                    aux.descripcion = (string)acceso.Lector["Descripcion"];
-                    aux.imagenUrl = (string)acceso.Lector["ImagenUrl"];
+                    if (!(acceso.Lector["Codigo"] is DBNull)) aux.codigo = (string)acceso.Lector["Nombre"];
+                    if (!(acceso.Lector["Nombre"] is DBNull)) aux.nombre = (string)acceso.Lector["Nombre"];
+                    if (!(acceso.Lector["Descripcion"] is DBNull)) aux.descripcion = (string)acceso.Lector["Descripcion"];
+                    if (!(acceso.Lector["ImagenUrl"] is DBNull)) aux.imagenUrl = (string)acceso.Lector["ImagenUrl"];
                     decimal precio = (decimal)acceso.Lector["Precio"];
                     aux.precio = Math.Round(precio, 2);
                     aux.marca = new Marca();
@@ -48,7 +48,7 @@ namespace Negocio
                 throw ex;
             }
 
-            finally { acceso.CerrarConexion();}
+            finally { acceso.CerrarConexion(); }
         }
         public void AgregarArticulo(Articulo nuevo)
 
@@ -67,7 +67,7 @@ namespace Negocio
                 accesoDatos.SetearParametro("@ImagenUrl", nuevo.imagenUrl);
                 accesoDatos.SetearParametro("@Precio", nuevo.precio);
                 accesoDatos.EjecutarAccion();
-              
+
 
 
 
@@ -104,7 +104,7 @@ namespace Negocio
             catch (Exception ex)
             {
 
-                throw ex ;
+                throw ex;
             }
             finally { accesoDatos.CerrarConexion(); }
 
@@ -145,10 +145,10 @@ namespace Negocio
                 {
                     Articulo aux = new Articulo();
                     aux.id = (int)acceso.Lector["Id"];
-                    aux.codigo = (string)acceso.Lector["Codigo"];
-                    aux.nombre = (string)acceso.Lector["Nombre"];
-                    aux.descripcion = (string)acceso.Lector["Descripcion"];
-                    aux.imagenUrl = (string)acceso.Lector["ImagenUrl"];
+                    if (!(acceso.Lector["Codigo"] is DBNull)) aux.codigo = (string)acceso.Lector["Nombre"];
+                    if (!(acceso.Lector["Nombre"] is DBNull)) aux.nombre = (string)acceso.Lector["Nombre"];
+                    if (!(acceso.Lector["Descripcion"] is DBNull)) aux.descripcion = (string)acceso.Lector["Descripcion"];
+                    if (!(acceso.Lector["ImagenUrl"] is DBNull)) aux.imagenUrl = (string)acceso.Lector["ImagenUrl"];
                     decimal precio = (decimal)acceso.Lector["Precio"];
                     aux.precio = Math.Round(precio, 2);
                     aux.marca = new Marca();

@@ -21,7 +21,7 @@ namespace Negocio
 
                 while (acceso.Lector.Read())
                 {
-                    Categoria aux= new Categoria();
+                    Categoria aux = new Categoria();
                     aux.id = (int)acceso.Lector["Id"];
                     aux.descripcion = (string)acceso.Lector["Descripcion"];
 
@@ -38,7 +38,30 @@ namespace Negocio
                 throw ex;
             }
 
-            finally { acceso.CerrarConexion(); }    
+            finally { acceso.CerrarConexion(); }
+        }
+
+        public void AgregarCategoria(Categoria nueva)
+        {
+            AccesoDatos accesodatos = new AccesoDatos();
+
+            try
+            {
+                accesodatos.SetearConsulta("Insert into CATEGORIAS (Descripcion) VALUES (@Descripcion)");
+                accesodatos.SetearParametro("@Descripcion", nueva.descripcion);
+                accesodatos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+
+            }
+
+            finally
+            {
+                accesodatos.CerrarConexion();
+            }
         }
     }
 }
