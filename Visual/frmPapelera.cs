@@ -80,7 +80,7 @@ namespace Visual
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             articulo = (Articulo)dgvPapelera.CurrentRow.DataBoundItem;
-            DialogResult respuesta = MessageBox.Show("¿Eliminar definitivamente?", "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult respuesta = MessageBox.Show("¿Eliminar definitivamente?", "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (respuesta == DialogResult.Yes)
             {
                 negocio.eliminarDefinitivo(articulo.id);

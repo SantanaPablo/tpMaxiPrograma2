@@ -18,7 +18,9 @@ namespace Visual
 
         private List<Marca> listaMarcas = new List<Marca>();
         private Marca marca = new Marca();
-        private MarcaNegocio negocio = new MarcaNegocio();
+        private MarcaNegocio negocio = new MarcaNegocio();  
+        private List<Articulo> listaArticulos = new List<Articulo>();
+        private ArticuloNegocio articulo =  new ArticuloNegocio();
         
 
         public frmMarcas()
@@ -108,6 +110,53 @@ namespace Visual
                 throw ex;
             }
             
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                marca = (Marca)dgvMarcas.CurrentRow.DataBoundItem;
+                listaArticulos = articulo.listarArticulos();
+                int cont = 0;
+                foreach (var item in listaArticulos)
+                {
+                    if(item.marca.id == marca.id)
+                    {
+                        cont++;
+                    }
+                  
+                }
+
+                if (cont > 0)
+                {
+                    DialogResult respuesta = MessageBox.Show("¿Hay " + cont + " Artículo/s con la marca " + marca.descripcion + ", borrar definitivamente?", "Eliminando marca...", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        negocio.eliminarDefinitivo(marca.id);
+                        cargar();
+                    }
+                }
+                else
+                {
+                    DialogResult respuesta = MessageBox.Show("¿Borrar " + marca.descripcion + " definitivamente?", "Eliminando marca...", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        negocio.eliminarDefinitivo(marca.id);
+                        cargar();
+                    }
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
+
         }
     }
 }

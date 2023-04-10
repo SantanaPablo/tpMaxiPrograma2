@@ -24,7 +24,7 @@ namespace Negocio
                 {
                     Articulo aux = new Articulo();
                     aux.id = (int)acceso.Lector["Id"];
-                    if (!(acceso.Lector["Codigo"] is DBNull)) aux.codigo = (string)acceso.Lector["Nombre"];
+                    if (!(acceso.Lector["Codigo"] is DBNull)) aux.codigo = (string)acceso.Lector["Codigo"];
                     if (!(acceso.Lector["Nombre"] is DBNull)) aux.nombre = (string)acceso.Lector["Nombre"];
                     if (!(acceso.Lector["Descripcion"] is DBNull)) aux.descripcion = (string)acceso.Lector["Descripcion"];
                     if (!(acceso.Lector["ImagenUrl"] is DBNull)) aux.imagenUrl = (string)acceso.Lector["ImagenUrl"];
@@ -88,7 +88,7 @@ namespace Negocio
             AccesoDatos accesoDatos = new AccesoDatos();
             try
             {
-                accesoDatos.SetearConsulta("update ARTICULOS set Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, ImagenUrl = @ImagenUrl, Precio = @Precio where Id=@Id");
+                accesoDatos.SetearConsulta("update ARTICULOS set Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, IdMarca = @IdMarca, IdCategoria = @IdCategoria,ImagenUrl = @ImagenUrl, Precio = @Precio where Id=@Id");
                 accesoDatos.SetearParametro("@Id", viejo.id);
                 accesoDatos.SetearParametro("@Codigo", viejo.codigo);
                 accesoDatos.SetearParametro("@Nombre", viejo.nombre);
@@ -145,7 +145,7 @@ namespace Negocio
                 {
                     Articulo aux = new Articulo();
                     aux.id = (int)acceso.Lector["Id"];
-                    if (!(acceso.Lector["Codigo"] is DBNull)) aux.codigo = (string)acceso.Lector["Nombre"];
+                    if (!(acceso.Lector["Codigo"] is DBNull)) aux.codigo = (string)acceso.Lector["Codigo"];
                     if (!(acceso.Lector["Nombre"] is DBNull)) aux.nombre = (string)acceso.Lector["Nombre"];
                     if (!(acceso.Lector["Descripcion"] is DBNull)) aux.descripcion = (string)acceso.Lector["Descripcion"];
                     if (!(acceso.Lector["ImagenUrl"] is DBNull)) aux.imagenUrl = (string)acceso.Lector["ImagenUrl"];
@@ -189,5 +189,7 @@ namespace Negocio
 
             finally { accesoDatos.CerrarConexion(); }
         }
+
+       
     }
 }

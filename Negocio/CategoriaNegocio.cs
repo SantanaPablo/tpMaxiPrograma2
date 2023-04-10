@@ -63,5 +63,23 @@ namespace Negocio
                 accesodatos.CerrarConexion();
             }
         }
+
+        public void eliminarDefinitivo(int id)
+        {
+            AccesoDatos accesoDatos = new AccesoDatos();
+            try
+            {
+                accesoDatos.SetearConsulta("delete from Categorias where Id = @Id delete from ARTICULOS where IdCategoria = @Id");
+                accesoDatos.SetearParametro("@Id", id);
+                accesoDatos.EjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            finally { accesoDatos.CerrarConexion(); }
+        }
     }
 }

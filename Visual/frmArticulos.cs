@@ -134,6 +134,7 @@ namespace Visual
             {
                 cargarImagen("");
                 frmAltaArticulo nuevo = new frmAltaArticulo();
+                nuevo.Text = "Alta Artículo";
                 nuevo.ShowDialog();
                 cargar();
             }
@@ -155,6 +156,7 @@ namespace Visual
                 articuloaux = new Articulo();
                 articuloaux.nombre = articulo.nombre;
                 frmAltaArticulo modificar = new frmAltaArticulo(articulo);
+                modificar.Text= "Modificando";
                 modificar.ShowDialog();
                 cargar();
             }
@@ -165,6 +167,11 @@ namespace Visual
             }
             
 
+        }
+
+        private void dgvArticulos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnModificar_Click(sender, e);
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -396,6 +403,8 @@ namespace Visual
                 throw ex;
             }
         }
+
+        
 
         //////////////////////////////////////////////////////////////////
     }

@@ -18,6 +18,8 @@ namespace Visual
         private List<Categoria> listaCategorias = new List<Categoria>();
         private Categoria categoria = new Categoria();
         private CategoriaNegocio negocio = new CategoriaNegocio();
+        private List<Articulo> listaArticulos = new List<Articulo>();
+        private ArticuloNegocio articulo = new ArticuloNegocio();
         public frmCategorias()
         {
             InitializeComponent();
@@ -89,6 +91,51 @@ namespace Visual
                 throw ex;
             }
             
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                categoria = (Categoria)dgvCategorias.CurrentRow.DataBoundItem;
+                listaArticulos = articulo.listarArticulos();
+                int cont = 0;
+                foreach (var item in listaArticulos)
+                {
+                    if (item.categoria.id == categoria.id)
+                    {
+                        cont++;
+                    }
+
+                }
+
+                if (cont > 0)
+                {
+                    DialogResult respuesta = MessageBox.Show("¿Hay " + cont + " Artículo/s con la categoría " + categoria.descripcion + ", borrar definitivamente?", "Eliminando categoría...", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        negocio.eliminarDefinitivo(categoria.id);
+                        cargar();
+                    }
+                }
+                else
+                {
+                    DialogResult respuesta = MessageBox.Show("¿Borrar " + categoria.descripcion + " definitivamente?", "Eliminando categoría...", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        negocio.eliminarDefinitivo(categoria.id);
+                        cargar();
+                    }
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
     }
 }
